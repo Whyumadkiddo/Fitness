@@ -95,7 +95,6 @@ public class AddWorkoutController {
                 String insertWorkout = "INSERT INTO workouts (client_id, trainer_id, workout_type, workout_time) VALUES (?, ?, ?, ?)";
                 PreparedStatement stmt = conn.prepareStatement(insertWorkout);
 
-                // Получить ID клиента и тренера
                 int clientId = getClientId(clientName);
                 int trainerId = getTrainerId(trainerName);
 
@@ -106,10 +105,8 @@ public class AddWorkoutController {
 
                 stmt.executeUpdate();
 
-                // Уведомляем основное окно о необходимости обновления данных
                 notifyDataChanged();
 
-                // Закрываем окно после успешного добавления тренировки
                 Stage stage = (Stage) clientComboBox.getScene().getWindow();
                 stage.close();
             } catch (SQLException e) {
@@ -143,7 +140,6 @@ public class AddWorkoutController {
     }
 
     private void notifyDataChanged() {
-        // Уведомляем основное окно о необходимости обновления данных
         TrainersController.getInstance().loadTrainersAndClientsWithWorkouts();
     }
 }
