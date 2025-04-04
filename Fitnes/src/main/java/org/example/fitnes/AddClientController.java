@@ -55,7 +55,6 @@ public class AddClientController {
                 String insertClient = "INSERT INTO clients (name, trainer_id) VALUES (?, ?)";
                 PreparedStatement stmt = conn.prepareStatement(insertClient);
 
-                // Получить ID тренера
                 int trainerId = getTrainerId(trainerName);
 
                 stmt.setString(1, clientName);
@@ -63,10 +62,8 @@ public class AddClientController {
 
                 stmt.executeUpdate();
 
-                // Уведомляем основное окно о необходимости обновления данных
                 notifyDataChanged();
 
-                // Закрываем окно после успешного добавления клиента
                 Stage stage = (Stage) clientNameField.getScene().getWindow();
                 stage.close();
             } catch (SQLException e) {
@@ -88,7 +85,6 @@ public class AddClientController {
     }
 
     private void notifyDataChanged() {
-        // Уведомляем основное окно о необходимости обновления данных
         TrainersController.getInstance().loadTrainersAndClientsWithWorkouts();
     }
 }
